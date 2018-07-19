@@ -106,9 +106,10 @@
     <profile>
       <id>exclude-udp-unit-tests</id>
       <activation>
-        <property>
+        <activeByDefault>true</activeByDefault>
+        <!--<property>
           <name>exclude-udp-tests</name>
-        </property>
+        </property>-->
       </activation>
       <build>
         <plugins>

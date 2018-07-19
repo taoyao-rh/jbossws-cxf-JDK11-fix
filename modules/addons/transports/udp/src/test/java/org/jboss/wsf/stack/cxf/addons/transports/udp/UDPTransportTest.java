@@ -52,7 +52,14 @@ public class UDPTransportTest
       factory.setBus(bus);
       factory.setAddress("udp://:" + PORT);
       factory.setServiceBean(new GreeterImpl());
-      server = factory.create();
+      System.out.println("print error log");
+      try {
+         server = factory.create();
+      } catch (Throwable e) {
+         System.out.println("------------------: " + e.getMessage());
+         e.printStackTrace();
+      }
+
    }
 
    @AfterClass
@@ -123,7 +130,7 @@ public class UDPTransportTest
 
       ((java.io.Closeable) g).close();
    }
-   
+
    private boolean isBroadcastAddressAvailable(NetworkInterface networkInterface) {
       for (InterfaceAddress interfaceAddress : networkInterface.getInterfaceAddresses()) {
          InetAddress broadcast = interfaceAddress.getBroadcast();
