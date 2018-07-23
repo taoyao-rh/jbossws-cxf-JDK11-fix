@@ -97,8 +97,10 @@ public class JBWS2593TestCase extends JBossWSTest
           + "/jaxws/jbws2593/jbws2593-security.policy");
       String securityPolicyFile = " -Djava.security.policy=" + policyFile.getCanonicalPath();
 
+      // support for jdk11-ea
+      String addModulesForJdk11 = " --add-modules java.se";
       Map<String, String> env = new HashMap<>();
-      env.put("JAVA_OPTS", securityManagerDesignator + securityPolicyFile);
+      env.put("JAVA_OPTS", securityManagerDesignator + securityPolicyFile + addModulesForJdk11);
 
       executeCommand(command, null, "wsconsume", env);
       File javaSource = new File(TEST_DIR, "wsconsume" + FS + "java" + FS + "org" + FS + "jbws2593_" + (rpc ? "rpc" : "doc") + FS + "ParameterModeTest.java");

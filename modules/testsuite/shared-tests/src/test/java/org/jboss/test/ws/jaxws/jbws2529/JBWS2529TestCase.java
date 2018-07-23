@@ -89,8 +89,10 @@ public class JBWS2529TestCase extends JBossWSTest
       File policyFile = new File(JBossWSTestHelper.getTestResourcesDir() + "/jaxws/jbws2529/jbws2529-security.policy");
       String securityPolicyFile = " -Djava.security.policy=" + policyFile.getCanonicalPath();
 
+      // support for jdk11-ea
+      String addModulesForJdk11 = " --add-modules java.se";
       Map<String, String> env = new HashMap<>();
-      env.put("JAVA_OPTS", securityManagerDesignator + securityPolicyFile);
+      env.put("JAVA_OPTS", securityManagerDesignator + securityPolicyFile + addModulesForJdk11);
       executeCommand(command, null, "wsprovide", env);
       
       File wsdl = new File(destDir, isIntegrationCXF() ? "JBWS2529EndpointService_schema1.xsd" : "JBWS2529EndpointService.wsdl");

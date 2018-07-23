@@ -164,6 +164,12 @@ public abstract class JBossWSTest extends Assert
     */
    private static void executeCommand(List<String> command, OutputStream os, String message, Map<String, String> env) throws IOException
    {
+      if (versionNum() > 8) {
+         String javaOpts = env.getOrDefault("JAVA_OPTS", "");
+         String addModulesForJdk11 = " --add-modules java.se";
+         javaOpts += addModulesForJdk11;
+         env.put("JAVA_OPTS", javaOpts);
+      }
       ProcessBuilder pb = new ProcessBuilder(command);
       if (env != null)
       {
@@ -482,5 +488,17 @@ public abstract class JBossWSTest extends Assert
    
    protected String getClientJarPaths() {
       return null;
+   }
+
+   // check jdk num
+   private static int versionNum(){
+      String version = System.getProperty("java.version");
+      //jdk11 ------ "11-ea"
+      if (version.indexOf("-") > 0) {
+         version = version.substring(0, version.indexOf("-"));
+         return Integer.valueOf(version);
+      }
+      return 8; // version <= 8
+
    }
 }

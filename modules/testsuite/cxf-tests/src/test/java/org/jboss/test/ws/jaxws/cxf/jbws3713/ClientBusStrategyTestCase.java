@@ -143,6 +143,10 @@ public class ClientBusStrategyTestCase extends JBossWSTest
       //properties
       String additionalJVMArgs = System.getProperty("additionalJvmArgs", "");
       additionalJVMArgs =  additionalJVMArgs.replace('\n', ' ');
+
+       // support jdk11-ea
+      sbuf.append(" ").append("--add-modules java.se");
+
       sbuf.append(" ").append(additionalJVMArgs);
       sbuf.append(" -Djavax.xml.ws.spi.Provider=").append(ProviderImpl.class.getName());
       sbuf.append(" -Dlog4j.output.dir=").append(System.getProperty("log4j.output.dir"));

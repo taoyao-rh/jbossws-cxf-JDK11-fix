@@ -92,7 +92,10 @@ public class JBWS2528TestCase extends JBossWSTest
       File policyFile = new File(JBossWSTestHelper.getTestResourcesDir() + "/jaxws/jbws2528/jbws2528-security.policy");
       String securityPolicyFile = " -Djava.security.policy=" + policyFile.getCanonicalPath();
 
+      // support for jdk11-ea
+      //String addModulesForJdk11 = " --add-modules java.se";
       Map<String, String> env = new HashMap<>();
+      //env.put("JAVA_OPTS", securityManagerDesignator + securityPolicyFile + addModulesForJdk11);
       env.put("JAVA_OPTS", securityManagerDesignator + securityPolicyFile);
       executeCommand(command, null, "wsprovide", env);
 

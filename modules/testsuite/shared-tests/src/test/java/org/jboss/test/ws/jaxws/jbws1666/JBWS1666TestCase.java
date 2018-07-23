@@ -130,6 +130,10 @@ public class JBWS1666TestCase extends JBossWSTest
       //properties
       String additionalJVMArgs = System.getProperty("additionalJvmArgs", "");
       additionalJVMArgs =  additionalJVMArgs.replace('\n', ' ');
+
+      // support jdk11-ea
+      sbuf.append(" ").append("--add-modules java.se");
+
       sbuf.append(" ").append(additionalJVMArgs);
       sbuf.append(" -Dlog4j.output.dir=").append(System.getProperty("log4j.output.dir"));
 
@@ -156,7 +160,6 @@ public class JBWS1666TestCase extends JBossWSTest
 
       // input args to our client.jar main
       sbuf.append(" ").append(getServerHost()).append(" ").append(getServerPort());
-
       final String command = sbuf.toString();
       ByteArrayOutputStream bout = new ByteArrayOutputStream();
       executeCommand(command, bout);
