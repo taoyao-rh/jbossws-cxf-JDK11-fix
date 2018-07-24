@@ -164,7 +164,7 @@ public abstract class JBossWSTest extends Assert
     */
    private static void executeCommand(List<String> command, OutputStream os, String message, Map<String, String> env) throws IOException
    {
-      if (versionNum() > 8) {
+      if (env != null && versionNum() > 8) {
          String javaOpts = env.getOrDefault("JAVA_OPTS", "");
          String addModulesForJdk11 = " --add-modules java.se";
          javaOpts += addModulesForJdk11;
@@ -209,6 +209,12 @@ public abstract class JBossWSTest extends Assert
    public static MBeanServerConnection getServer() throws NamingException
    {
       return JBossWSTestHelper.getServer();
+   }
+   public static StringBuffer addJDK11VmArgs(StringBuffer buffer) {
+      if (versionNum() > 8) {
+         buffer.append(" --add-modules java.se");
+      }
+      return buffer;
    }
 
    public static boolean isIntegrationCXF()

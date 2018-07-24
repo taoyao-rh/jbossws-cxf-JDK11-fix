@@ -116,7 +116,6 @@ public class JBWS1666TestCase extends JBossWSTest
          return;
       }
       runJBossModulesClient("jaxws-jbws1666-b-client.jar");
-   }
 
    private void runJBossModulesClient(String clientJar) throws Exception {
 
@@ -130,13 +129,10 @@ public class JBWS1666TestCase extends JBossWSTest
       //properties
       String additionalJVMArgs = System.getProperty("additionalJvmArgs", "");
       additionalJVMArgs =  additionalJVMArgs.replace('\n', ' ');
-
-      // support jdk11-ea
-      sbuf.append(" ").append("--add-modules java.se");
-
       sbuf.append(" ").append(additionalJVMArgs);
       sbuf.append(" -Dlog4j.output.dir=").append(System.getProperty("log4j.output.dir"));
-
+      // support for jdk11-ea
+      addJDK11VmArgs(sbuf);
       final String jbh = System.getProperty("jboss.home");
       final String jbm = jbh + FS + "modules";
       final String jbmjar = jbh + FS + "jboss-modules.jar";
