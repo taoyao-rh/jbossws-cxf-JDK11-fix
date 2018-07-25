@@ -116,6 +116,7 @@ public class JBWS1666TestCase extends JBossWSTest
          return;
       }
       runJBossModulesClient("jaxws-jbws1666-b-client.jar");
+   }
 
    private void runJBossModulesClient(String clientJar) throws Exception {
 

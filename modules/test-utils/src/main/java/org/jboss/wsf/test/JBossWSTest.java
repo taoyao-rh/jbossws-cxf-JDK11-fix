@@ -210,11 +210,11 @@ public abstract class JBossWSTest extends Assert
    {
       return JBossWSTestHelper.getServer();
    }
-   public static StringBuffer addJDK11VmArgs(StringBuffer buffer) {
+   public static StringBuilder addJDK11VmArgs(StringBuilder builder) {
       if (versionNum() > 8) {
-         buffer.append(" --add-modules java.se");
+         builder.append(" --add-modules java.se");
       }
-      return buffer;
+      return builder;
    }
 
    public static boolean isIntegrationCXF()

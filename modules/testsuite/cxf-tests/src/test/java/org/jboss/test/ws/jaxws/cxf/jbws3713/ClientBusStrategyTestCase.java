@@ -145,7 +145,7 @@ public class ClientBusStrategyTestCase extends JBossWSTest
       additionalJVMArgs =  additionalJVMArgs.replace('\n', ' ');
 
        // support jdk11-ea
-      sbuf.append(" ").append("--add-modules java.se");
+      addJDK11VmArgs(sbuf);
 
       sbuf.append(" ").append(additionalJVMArgs);
       sbuf.append(" -Djavax.xml.ws.spi.Provider=").append(ProviderImpl.class.getName());
