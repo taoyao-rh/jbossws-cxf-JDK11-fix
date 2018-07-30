@@ -1046,6 +1046,17 @@
       </properties>
     </profile>
 
+
+     <profile>
+      <id>java9-plus</id>
+      <activation>
+        <jdk>[9,)</jdk>
+      </activation>
+      <properties>
+          <additionalJvmArgs>--add-modules java.se</additionalJvmArgs>
+      </properties>
+    </profile>
+
   </profiles>
 
 </project>

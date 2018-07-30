@@ -164,6 +164,12 @@ public abstract class JBossWSTest extends Assert
     */
    private static void executeCommand(List<String> command, OutputStream os, String message, Map<String, String> env) throws IOException
    {
+      if (env != null && versionNum() > 8) {
+         String javaOpts = env.getOrDefault("JAVA_OPTS", "");
+         String addModulesForJdk11 = " --add-modules java.se";
+         javaOpts += addModulesForJdk11;
+         env.put("JAVA_OPTS", javaOpts);
+      }
       ProcessBuilder pb = new ProcessBuilder(command);
       if (env != null)
       {
@@ -203,6 +209,12 @@ public abstract class JBossWSTest extends Assert
    public static MBeanServerConnection getServer() throws NamingException
    {
       return JBossWSTestHelper.getServer();
+   }
+   public static StringBuilder addJDK11VmArgs(StringBuilder builder) {
+      if (versionNum() > 8) {
+         builder.append(" --add-modules java.se");
+      }
+      return builder;
    }
 
    public static boolean isIntegrationCXF()
@@ -482,5 +494,17 @@ public abstract class JBossWSTest extends Assert
    
    protected String getClientJarPaths() {
       return null;
+   }
+
+   // check jdk num
+   private static int versionNum(){
+      String version = System.getProperty("java.version");
+      //jdk11 ------ "11-ea"
+      if (version.indexOf("-") > 0) {
+         version = version.substring(0, version.indexOf("-"));
+         return Integer.valueOf(version);
+      }
+      return 8; // version <= 8
+
    }
 }

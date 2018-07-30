@@ -126,7 +126,16 @@ final class AppclientHelper
          }
       }
    }
-
+   // check jdk num
+   private static int versionNum(){
+      String version = System.getProperty("java.version");
+      //jdk11 ------ "11-ea"
+      if (version.indexOf("-") > 0) {
+         version = version.substring(0, version.indexOf("-"));
+         return Integer.valueOf(version);
+      }
+      return 8; // version <= 8
+   }
    private static AppclientProcess newAppclientProcess(final String archive, final OutputStream appclientOS, final String... appclientArgs) throws Exception
    {
       s.acquire();
@@ -168,6 +177,9 @@ final class AppclientHelper
          // always propagate IPv6 related properties
          final StringBuilder javaOptsValue = new StringBuilder();
 
+         if (versionNum() > 8){
+            javaOptsValue.append(" --add-modules java.se").append(" ");
+         }
          // wildfly9 security manage flag changed from -Djava.security.manager to -secmgr.
          // Can't pass -secmgr arg through arquillian because it breaks arquillian's
          // config of our tests.
